@@ -1,0 +1,17 @@
+sources:
+    - name: stripe
+      description: This is a replica of the Stripe database used by our app
+      database: raw
+      schema: stripe
+      tables:
+        - name: payment
+          description: One record per payment. Includes cancelled and deleted payments.
+          config:
+            freshness:
+              warn_after:
+                count: 15
+                period: day
+              error_after:
+                count: 20
+                period: day
+            loaded_at_field: _batched_at
